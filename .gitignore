@@ -1,0 +1,18 @@
+# Ignore the Virtual Environment (Crucial!)
+venv/
+env/
+
+# Ignore Python compiled files (Junk)
+__pycache__/
+*.pyc
+
+# Ignore the Database (Local data should not be shared)
+ueldo.db
+*.sqlite3
+instance/
+
+# Ignore VS Code settings (Personal preferences)
+.vscode/
+
+# Ignore Environment Variables (Secrets/Passwords)
+.env

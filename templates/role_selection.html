@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Role - Ueldo</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <style>
+        .split-screen { display: flex; height: 100vh; }
+        .split-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .side-organizer { background: #2d2d44; }
+        .side-participant { background: #4a4a8c; }
+        .split-side:hover { flex: 1.2; }
+    </style>
+</head>
+<body>
+
+<div class="split-screen">
+    <a href="/set_role/organizer" class="split-side side-organizer">
+        <h1>I am a Host</h1>
+        <p>I want to organize matches and manage players.</p>
+        <div class="btn" style="background:white; color:#2d2d44; margin-top:20px; width:auto;">Select Host</div>
+    </a>
+
+    <a href="/set_role/participant" class="split-side side-participant">
+        <h1>I am a Player</h1>
+        <p>I want to find competitions and win prizes.</p>
+        <div class="btn" style="background:white; color:#4a4a8c; margin-top:20px; width:auto;">Select Player</div>
+    </a>
+</div>
+
+</body>
+</html>

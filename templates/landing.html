@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Ueldo</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <style>
+        .split-screen {
+            display: flex;
+            height: 100vh;
+        }
+        .split-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+        .side-organizer { background: #2d2d44; } /* Dark Blue */
+        .side-participant { background: #4a4a8c; } /* Purple */
+        
+        .split-side:hover { flex: 1.2; } /* Expands on hover */
+        
+        h1 { font-size: 3em; margin: 0; }
+        p { font-size: 1.2em; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="split-screen">
+    <a href="/organizer/dashboard" class="split-side side-organizer">
+        <h1>I am a Host</h1>
+        <p>Organize Tournaments & Manage Players</p>
+        <button class="btn" style="margin-top:20px; background:white; color:#2d2d44; width:auto;">
+            Go to Dashboard &rarr;
+        </button>
+    </a>
+
+    <a href="#" class="split-side side-participant" onclick="alert('Participant flow coming soon!')">
+        <h1>I am a Player</h1>
+        <p>Find Matches, Compete & Win Glory</p>
+    </a>
+</div>
+
+</body>
+</html>
