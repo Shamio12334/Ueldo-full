@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pay Entry Fee</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<div class="dashboard-wrapper" style="text-align:center; max-width:500px;">
+    <h1>Entry Fee: ₹{{ comp.entry_fee }}</h1>
+    <p>Scan to pay for <strong>{{ comp.name }}</strong></p>
+    
+    <div style="background:white; padding:20px; border-radius:15px; margin:20px 0; display:inline-block; border:1px solid #ddd;">
+        <img src="{{ url_for('static', filename='uploads/' + comp.qr_code) if comp.qr_code else 'https://via.placeholder.com/250x250?text=No+QR+Code' }}" style="width:250px; height:250px; object-fit:contain;">
+    </div>
+
+    <p style="color:#666; margin-bottom:30px;">After paying on PhonePe/GPay, click the button below.</p>
+
+    <form action="/participant/confirm_payment/{{ comp.id }}" method="POST">
+        <button type="submit" class="btn" style="background:#27ae60;">I Have Paid</button>
+    </form>
+    
+    <br>
+    <a href="/participant/feed" style="color:#888;">Cancel</a>
+</div>
+</body>
+</html>

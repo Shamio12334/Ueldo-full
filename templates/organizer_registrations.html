@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrations</title>
+    <link rel="stylesheet" href="../../static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<nav class="user-nav">
+    <span>Players: {{ comp.name }}</span>
+    <a href="/organizer/dashboard">Back</a>
+</nav>
+
+<div class="dashboard-wrapper">
+    <h3>Participating Players</h3>
+    
+    {% if reg_data %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Phone Number</th>
+                <th>Payment Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in reg_data %}
+            <tr>
+                <td>
+                    <a href="https://wa.me/91{{ r.phone }}" target="_blank" style="color:#333; text-decoration:none; font-weight:bold; font-size:1.1em;">
+                        <i class="fab fa-whatsapp" style="color:#25d366;"></i> {{ r.phone }}
+                    </a>
+                </td>
+                <td>
+                    {% if r.status == 'Pending' %} 
+                        <span style="background:#fff3cd; color:#856404; padding:5px 10px; border-radius:10px; font-size:0.9em;">Check Bank</span>
+                    {% else %} 
+                        <span style="background:#e6fffa; color:#00b894; padding:5px 10px; border-radius:10px; font-size:0.9em;">Paid</span> 
+                    {% endif %}
+                </td>
+                <td>
+                    {% if r.status == 'Pending' %}
+                        <a href="/organizer/approve/{{ r.reg_id }}" class="btn" style="padding:8px 15px; width:auto; background:#27ae60;">Approve Payment</a>
+                    {% else %}
+                        <span style="color:#aaa;"><i class="fas fa-check"></i> Added</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div style="text-align:center; padding:40px; color:#888;">No registrations yet.</div>
+    {% endif %}
+</div>
+</body>
+</html>

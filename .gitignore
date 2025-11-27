@@ -16,3 +16,8 @@ instance/
 
 # Ignore Environment Variables (Secrets/Passwords)
 .env
+
+venv/
+__pycache__/
+ueldo.db
+.vscode/

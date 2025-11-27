@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Competition</title>
+    <link rel="stylesheet" href="../../static/style.css"> </head>
+<body>
+
+<nav class="user-nav">
+    <span>Edit Mode</span>
+    <a href="/organizer/dashboard">Cancel</a>
+</nav>
+
+<div class="dashboard-wrapper">
+    <div class="form-header">
+        <h1>Edit Competition</h1>
+        <p>Update details for <strong>{{ comp.name }}</strong></p>
+    </div>
+
+    <form action="/organizer/update/{{ comp.id }}" method="POST">
+        
+        <div class="form-section-card">
+            <div class="form-group">
+                <label>Competition Name</label>
+                <input type="text" name="compName" class="form-control" value="{{ comp.name }}" required>
+            </div>
+            <div class="input-grid">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" class="form-control">
+                        <option value="Sports" {% if comp.category == 'Sports' %}selected{% endif %}>Sports</option>
+                        <option value="Creativity" {% if comp.category == 'Creativity' %}selected{% endif %}>Creativity</option>
+                        <option value="Socials" {% if comp.category == 'Socials' %}selected{% endif %}>Socials</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Sub-Category</label>
+                    <input type="text" name="subCat" class="form-control" value="{{ comp.subcategory }}" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section-card">
+            <div class="input-grid">
+                <div class="form-group">
+                    <label>Date & Time</label>
+                    <input type="text" name="dateTime" class="form-control" value="{{ comp.date }}">
+                </div>
+                <div class="form-group">
+                    <label>Venue Name</label>
+                    <input type="text" name="venue" class="form-control" value="{{ comp.venue }}">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Google Maps Link</label>
+                <input type="url" name="mapLink" class="form-control" value="{{ comp.map_link }}" placeholder="https://maps.google...">
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" class="form-control" rows="3">{{ comp.description }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-section-card">
+            <div class="input-grid">
+                <div class="form-group">
+                    <label>Entry Fee (₹)</label>
+                    <input type="number" name="fee" class="form-control" value="{{ comp.entry_fee }}">
+                </div>
+                <div class="form-group">
+                    <label>Prize Pool</label>
+                    <input type="text" name="prize" class="form-control" value="{{ comp.prize_pool }}">
+                </div>
+            </div>
+            <button type="submit" class="btn" style="margin-top:20px;">Save Changes</button>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

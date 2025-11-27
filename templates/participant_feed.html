@@ -2,115 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Live Competitions</title>
+    <title>Feed</title>
     <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Feed Styling */
-        .feed-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        .comp-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.2s;
-            border: 1px solid #eee;
-        }
-        .comp-card:hover {
-            transform: translateY(-5px);
-        }
-        .comp-header {
-            background: #2d2d44;
-            color: white;
-            padding: 20px;
-        }
-        .cat-tag {
-            background: #4a4a8c;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .comp-body {
-            padding: 20px;
-        }
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            color: #555;
-            font-size: 0.9em;
-        }
-        .price-tag {
-            color: #27ae60;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        .btn-register {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background: #4a4a8c;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-        .btn-register:hover { background: #3b3b70; }
+        .feed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .comp-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border: 1px solid #eee; }
+        .comp-header { background: #2d2d44; color: white; padding: 20px; }
+        .comp-body { padding: 20px; }
+        .price-tag { color: #27ae60; font-weight: bold; float: right; }
+        .map-link { color: #0984e3; text-decoration: none; font-size: 0.9em; display: inline-block; margin-top: 5px;}
     </style>
 </head>
 <body>
 
 <nav class="user-nav">
-    <span>Participant Mode</span>
-    <a href="/">Back to Home</a>
+    <span>Participant Feed</span>
+    <div style="display:flex; gap:15px;">
+        <a href="/organizer/dashboard" style="color:#4a4a8c; border:1px solid #4a4a8c; padding:5px 10px; border-radius:5px;">
+            <i class="fas fa-bullhorn"></i> Switch to Host
+        </a>
+        <a href="/logout" style="color:#666;">Logout</a>
+    </div>
 </nav>
 
 <div class="dashboard-wrapper">
-    <h1>🏆 Upcoming Competitions</h1>
-    <p>Find your match and register instantly.</p>
-
+    <h1>Live Competitions</h1>
     <div class="feed-grid">
         {% for comp in competitions %}
         <div class="comp-card">
             <div class="comp-header">
-                <span class="cat-tag">{{ comp.subcategory }}</span>
-                <h2 style="margin-top:10px; font-size:1.4em;">{{ comp.name }}</h2>
-            </div>
-            <div class="comp-body">
-                <div class="info-row">
-                    <span>📅 {{ comp.date }}</span>
-                    <span>📍 {{ comp.venue }}</span>
-                </div>
-                <p style="color:#666; font-size:0.9em; margin-bottom:15px;">
-                    {{ comp.description }}
-                </p>
-                <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
-                <div class="info-row" style="align-items:center;">
-                    <span>Win: <strong>{{ comp.prize_pool }}</strong></span>
-                    <span class="price-tag">Entry: ₹{{ comp.entry_fee }}</span>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="background:#4a4a8c; padding:3px 8px; border-radius:10px; font-size:0.8em;">{{ comp.subcategory }}</span>
+                    
+                    {% if comp.organizer.is_verified %}
+                        <span style="color:#00d2d3; font-weight:bold; font-size:0.8em; display:flex; align-items:center; gap:5px;">
+                            <i class="fas fa-check-circle"></i> Verified Club
+                        </span>
+                    {% else %}
+                        <span style="color:#ff7675; font-weight:bold; font-size:0.8em;">
+                            <i class="fas fa-exclamation-circle"></i> Unverified
+                        </span>
+                    {% endif %}
                 </div>
                 
-                <a href="/participant/register/{{ comp.id }}" class="btn-register">
-                    Register Now
-                </a>
-                <div style="text-align:center; margin-top:5px; font-size:0.8em; color:#888;">
-                    {{ comp.registrations }} people registered
+                <h2 style="margin-top:10px;">{{ comp.name }}</h2>
+                <div style="font-size:0.8em; opacity:0.8; margin-top:5px;">Hosted by: {{ comp.organizer.phone }}</div>
+            </div>
+            <div class="comp-body">
+                <p><strong>📅 {{ comp.date }}</strong></p>
+                
+                <p style="margin-top:10px;">📍 {{ comp.venue }}</p>
+                {% if comp.map_link %}
+                    <a href="{{ comp.map_link }}" target="_blank" class="map-link">
+                        <i class="fas fa-map-marker-alt"></i> Get Directions
+                    </a>
+                {% endif %}
+                
+                <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
+                
+                <div>
+                    <span>🏆 {{ comp.prize_pool }}</span>
+                    <span class="price-tag">₹{{ comp.entry_fee }}</span>
+                </div>
+
+                {% if comp.id in my_status %}
+                    {% if my_status[comp.id] == 'Pending' %}
+                        <div style="background:#fff3cd; color:#856404; padding:10px; border-radius:8px; text-align:center; font-weight:bold; margin-top:15px;">
+                            ⏳ Payment Pending
+                        </div>
+                    {% elif my_status[comp.id] == 'Approved' %}
+                        <a href="{{ comp.whatsapp_link }}" target="_blank" class="btn" style="background:#25d366; margin-top:15px;">
+                            <i class="fab fa-whatsapp"></i> Join WhatsApp
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="/participant/pay/{{ comp.id }}" class="btn" style="margin-top:15px;">Register Now</a>
+                {% endif %}
+                
+                <div style="text-align:center; font-size:0.8em; color:#999; margin-top:5px;">
+                    {{ comp.registrations }} joined
                 </div>
             </div>
         </div>
         {% else %}
-            <p>No active competitions found.</p>
+            <p>No matches live right now.</p>
         {% endfor %}
     </div>
 </div>
-
 </body>
 </html>

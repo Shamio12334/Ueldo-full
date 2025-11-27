@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<div class="login-container">
+    <div class="login-card">
+        <h2>Verify Number</h2>
+        <p style="color:#666;">OTP sent to <strong>{{ phone }}</strong></p>
+        <p style="color:#27ae60; font-size:0.9em; background:#e6fffa; padding:5px; display:inline-block; border-radius:5px;">(Use code: 1234)</p>
+        
+        <form action="/verify_otp" method="POST">
+            <input type="number" name="otp" class="form-control" placeholder="Enter 4-digit OTP" required style="text-align:center; letter-spacing:5px; font-size:1.2em; margin: 20px 0;">
+            <button type="submit" class="btn">Login</button>
+        </form>
+        
+        <a href="/" style="display:block; margin-top:20px; color:#888; text-decoration:none;">Change Number</a>
+    </div>
+</div>
+</body>
+</html>

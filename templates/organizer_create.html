@@ -7,20 +7,23 @@
 </head>
 <body>
 
+<nav class="user-nav">
+    <span>Create Mode</span>
+    <a href="/organizer/dashboard">Back</a>
+</nav>
+
 <div class="dashboard-wrapper">
     <div class="form-header">
         <h1>Create New Match</h1>
-        <p>Enter the details below. This will be immediately visible to participants.</p>
     </div>
 
-    <form action="/submit_competition" method="POST">
+    <form action="/submit_competition" method="POST" enctype="multipart/form-data">
         
         <div class="form-section-card">
             <div class="form-group">
                 <label>Competition Name</label>
                 <input type="text" name="compName" class="form-control" placeholder="e.g. Weekend Chess Championship" required>
             </div>
-            
             <div class="input-grid">
                 <div class="form-group">
                     <label>Category</label>
@@ -32,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label>Sub-Category</label>
-                    <input type="text" name="subCat" class="form-control" placeholder="e.g. Cricket, Debate" required>
+                    <input type="text" name="subCat" class="form-control" placeholder="e.g. Cricket" required>
                 </div>
             </div>
         </div>
@@ -44,14 +47,19 @@
                     <input type="text" name="dateTime" class="form-control" placeholder="e.g. 12th Dec, 4 PM">
                 </div>
                 <div class="form-group">
-                    <label>Venue / Location</label>
+                    <label>Venue Name</label>
                     <input type="text" name="venue" class="form-control" placeholder="e.g. Salt Lake Stadium">
                 </div>
             </div>
             
             <div class="form-group">
-                <label>Description / Rules</label>
-                <textarea name="description" class="form-control" rows="3" placeholder="e.g. Knockout format, bring your own bat..."></textarea>
+                <label>Google Maps Link</label>
+                <input type="url" name="mapLink" class="form-control" placeholder="Paste Google Maps link here">
+            </div>
+            
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" class="form-control" rows="3"></textarea>
             </div>
         </div>
 
@@ -59,19 +67,30 @@
             <div class="input-grid">
                 <div class="form-group">
                     <label>Entry Fee (₹)</label>
-                    <input type="number" name="fee" class="form-control" placeholder="0" required>
+                    <input type="number" name="fee" class="form-control" placeholder="0">
                 </div>
                 <div class="form-group">
                     <label>Prize Pool</label>
-                    <input type="text" name="prize" class="form-control" placeholder="e.g. ₹5000 + Trophy">
+                    <input type="text" name="prize" class="form-control" placeholder="e.g. ₹5000">
                 </div>
             </div>
 
-            <button type="submit" class="btn" style="margin-top: 20px;">🚀 Publish to Feed</button>
+            <div class="input-grid" style="margin-top: 20px;">
+                <div class="form-group">
+                    <label>Upload Payment QR Code (Image)</label>
+                    <input type="file" name="qrFile" class="form-control" accept="image/*">
+                </div>
+                
+                <div class="form-group">
+                    <label>WhatsApp Group Link</label>
+                    <input type="url" name="whatsappLink" class="form-control" placeholder="https://chat.whatsapp.com/...">
+                </div>
+            </div>
+
+            <button type="submit" class="btn" style="margin-top:20px;">Publish Match</button>
         </div>
 
     </form>
 </div>
-
 </body>
 </html>
